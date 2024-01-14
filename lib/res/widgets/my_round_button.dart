@@ -10,6 +10,7 @@ class MyRoundButton extends StatelessWidget {
   final Color? titleColor;
   final BorderRadius? borderRadius;
   final void Function()? onTap;
+  final bool loadin;
 
   const MyRoundButton({super.key,
     this.height,
@@ -21,6 +22,7 @@ class MyRoundButton extends StatelessWidget {
     this.fontSize,
     this.titleColor,
     this.onTap,
+    this.loadin = false,
   });
 
   @override
@@ -35,7 +37,7 @@ class MyRoundButton extends StatelessWidget {
           color: btnColor,
           borderRadius: borderRadius
         ),
-        child: Text(title,style: TextStyle(fontSize: fontSize , fontWeight: fontWeight,color: titleColor),),
+        child: loadin ? CircularProgressIndicator(color: Colors.white,) : Text(title,style: TextStyle(fontSize: fontSize , fontWeight: fontWeight,color: titleColor),),
       ),
     );
   }
