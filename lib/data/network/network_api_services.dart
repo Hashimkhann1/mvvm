@@ -3,9 +3,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:mvvmprac/data/app_exception.dart';
 import 'package:mvvmprac/data/network/base_api_services.dart';
 import 'package:http/http.dart' as http;
+import 'package:mvvmprac/res/app_urls/app_urls.dart';
 
 class NetworkApiServics extends BaseApiservices {
 
@@ -37,8 +39,8 @@ class NetworkApiServics extends BaseApiservices {
     dynamic responseJson;
 
     try{
-      final response = await http.post(Uri.parse(url),
-        body: jsonEncode(data)
+      final response = await http.post(Uri.parse(AppUrls.baseUrl+url),
+        body: data
       ).timeout(const Duration(seconds: 12));
       responseJson = returnResponse(response);
     }on SocketException {
@@ -47,6 +49,10 @@ class NetworkApiServics extends BaseApiservices {
       throw RequestTimeOut();
     }
 
+    if(kDebugMode){
+      print(responseJson);
+      print(data);
+    }
     return responseJson;
 
   }
